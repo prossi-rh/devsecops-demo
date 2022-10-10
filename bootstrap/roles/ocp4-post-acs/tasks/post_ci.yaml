@@ -62,8 +62,8 @@
     query: >-
       [?contains(name,'token')].name
 
-#- debug:
-#    msg: "{{ token_sa_pipeline_secret }}"
+- debug:
+    msg: "{{ token_sa_pipeline_secret }}"
 
 - name: Get token in the secret for the sa pipeline and decode
   kubernetes.core.k8s_info:
@@ -73,8 +73,8 @@
     namespace: cicd
   register: r_token_sa_secret
 
-#- debug:
-#    msg: "{{ r_token_sa_secret.resources[0].data.token | b64decode }}"
+- debug:
+    msg: "{{ r_token_sa_secret.resources[0].data.token | b64decode }}"
 
 - name: define the token secret decoded
   set_fact:
