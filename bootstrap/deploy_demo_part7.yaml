@@ -1,0 +1,8 @@
+---
+- name: 'MVN CM'
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: 'MVN CM'
+      include_role:
+        name: "mvn-configmap"

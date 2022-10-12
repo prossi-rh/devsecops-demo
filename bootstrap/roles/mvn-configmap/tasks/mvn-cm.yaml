@@ -1,0 +1,4 @@
+- name: create the configmap
+  k8s:
+    state: present
+    definition: "{{ lookup('file', './mvn-cm-pac.yaml') | from_yaml }}"
