@@ -19,3 +19,4 @@
   - ./templates/argocd-petclinic-project.yaml.j2
   - ./templates/argocd-app-dev.yaml.j2
   - ./templates/argocd-app-stage.yaml.j2
+  - ./template/argocd-app-stage-pac.yaml.j2
