@@ -7,7 +7,7 @@ spec:
   generators:
   - list:
       elements:
-      - cluster: ocp4hub
+      - cluster: local-cluster
         url: https://api.ocp4hub.sandbox963.opentlc.com:6443
         namespace: devsecops-dev
       - cluster: ocp4stage
