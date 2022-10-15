@@ -19,12 +19,9 @@ spec:
     spec:
       project: spring-petclinic
       source:
-        repoURL: https://github.com/gamagnolo/spring-petclinic-config
+        repoURL: https://github.com/prossi-rh/spring-petclinic-config
         targetRevision: HEAD
         path: environments/{{cluster}}
       destination:
         server: '{{url}}'
         namespace: '{{namespace}}'
-
-## environments/stage
-## environments/dev
