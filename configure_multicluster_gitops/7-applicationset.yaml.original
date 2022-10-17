@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: food-app
+  name: spring-petclinic
   namespace: openshift-gitops
 spec:
   generators:
@@ -9,17 +9,19 @@ spec:
       elements:
       - cluster: ocp4stage
         url: https://api.ocp4stage.sandbox963.opentlc.com:6443
-      - cluster: ocp4dev
-        url: https://api.ocp4dev.sandbox537.opentlc.com:6443
+        namespace: devsecops-qa
+      - cluster: ocp4prod
+        url: https://api.ocp4prod.sandbox537.opentlc.com:6443
+        namespace: devsecops-prod
   template:
     metadata:
-      name: '{{cluster}}-food-app'
+      name: '{{cluster}}-spring-petclinic'
     spec:
-      project: food-app
+      project: spring-petclinic
       source:
-        repoURL: https://github.com/prossi-rh/food-app-config
+        repoURL: https://github.com/prossi-rh/spring-petclinic-config
         targetRevision: HEAD
         path: overlays/{{cluster}}
       destination:
         server: '{{url}}'
-        namespace: devsecops
+        namespace: '{{namespace}}'
