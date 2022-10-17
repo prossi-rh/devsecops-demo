@@ -7,12 +7,12 @@ spec:
   generators:
   - list:
       elements:
-      - cluster: local-cluster
-        url: https://api.ocp4hub.sandbox963.opentlc.com:6443
-        namespace: devsecops-dev
       - cluster: ocp4stage
         url: https://api.ocp4stage.sandbox963.opentlc.com:6443
         namespace: devsecops-qa
+      - cluster: ocp4prod
+        url: https://api.ocp4prod.sandbox537.opentlc.com:6443
+        namespace: devsecops-prod
   template:
     metadata:
       name: '{{cluster}}-spring-petclinic'
@@ -21,7 +21,7 @@ spec:
       source:
         repoURL: https://github.com/prossi-rh/spring-petclinic-config
         targetRevision: HEAD
-        path: environments/{{cluster}}
+        path: overlays/{{cluster}}
       destination:
         server: '{{url}}'
         namespace: '{{namespace}}'
