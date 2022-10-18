@@ -17,7 +17,7 @@ spec:
     spec:
       project: food-app
       source:
-        repoURL: https://github.com/prossi-rh/food-app-config
+        repoURL: https://github.com/gamagnolo/food-app-config
         targetRevision: HEAD
         path: overlays/{{cluster}}
       destination:
