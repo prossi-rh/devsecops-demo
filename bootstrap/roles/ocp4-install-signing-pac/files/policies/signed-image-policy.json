@@ -5,7 +5,7 @@
             "name": "Trusted_Signature_Image_Policy PAC",
             "description": "Alert on Images that have not been signed",
             "rationale": "rationale",
-            "remediation": "All images should be signed by our cosign-demo signature",
+            "remediation": "All images should be signed by our cosign-demo-2 signature",
             "disabled": false,
             "categories": [
                 "Security Best Practices"
@@ -31,7 +31,7 @@
                             "negate": false,
                             "values": [
                                 {
-                                    "value": "io.stackrox.signatureintegration.f9352803-d5c9-45d6-abe0-e1361a24559a"
+                                    "value": "io.stackrox.signatureintegration.081116fe-0ad0-4060-bedf-0e9aea08b2b8"
                                 }
                             ]
                         }

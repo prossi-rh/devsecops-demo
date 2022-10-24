@@ -1,0 +1,10 @@
+---
+- name: 'Extend Original Demo for Image and TaskRun Signing'
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: 'Install and Enable the infra for Signing and Tekton Chaining'
+      include_role:
+        name: "ocp4-install-signing-pac"
+
+    
