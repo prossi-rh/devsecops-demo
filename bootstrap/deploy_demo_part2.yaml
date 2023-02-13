@@ -5,4 +5,4 @@
   tasks:
     - name: 'Install CICD Infra'
       include_role:
-        name: "ocp4-install-cicd"
+        name: "ocp4-install-cicd-pac"
