@@ -3,11 +3,6 @@
     state: present
     definition: "{{ lookup('template', 'cicd-rb.yaml.j2') }}"
 
-#- name: Install Gogs
-#  kubernetes.core.k8s:
-#    state: present
-#    definition: "{{ lookup('template', 'cicd-gogs.yaml.j2') }}"
-
 - name: Install nexus
   kubernetes.core.k8s:
     state: present
@@ -22,37 +17,6 @@
   kubernetes.core.k8s:
     state: present
     definition: "{{ lookup('template', 'cicd-reports-repo.yaml.j2') }}"
-
-# Check Gogs
-# - name: Get gogs route
-#  kubernetes.core.k8s_info:
-#    kind: Route
-#    api_version: route.openshift.io/v1
-#    namespace: pac-demo-pipelines
-#    name: gogs
-#  register: r_gogs_route
-#  retries: 10
-#  delay: 20
-#  until:
-#    - r_gogs_route.resources[0].spec.host is defined
-
-#- name: Debug gogs route
-#  debug:
-#    msg: "{{ r_gogs_route.resources[0].spec.host }}"
-
-# - name: Patch with specific route domain
-#   kubernetes.core.k8s:
-#    state: present
-#    definition: "{{ lookup('template', 'cicd-gogs-configmap.yaml.j2') }}"
-
-#- name: Wait for gogs and gogs-postgresql to be running
-#  uri:
-#    url: http://{{ r_gogs_route.resources[0].spec.host }}
-#    status_code: 200
-#  register: result
-#  until: result.status == 200
-#  retries: 10
-#  delay: 30
 
 # Check Nexus Route
 - name: Get nexus route
