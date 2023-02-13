@@ -52,7 +52,7 @@
     kind: ServiceAccount
     api_version: /v1
     name: pipeline
-    namespace: cicd
+    namespace: pac-demo-pipelines
   register: r_argopass
 
 - name: Get the secret that contains the token of sa pipeline
@@ -70,7 +70,7 @@
     kind: Secret
     api_version: /v1
     name: "{{ token_sa_pipeline_secret[0] | replace(\"'\",'') }}"
-    namespace: cicd
+    namespace: pac-demo-pipelines
   register: r_token_sa_secret
 
 - debug:

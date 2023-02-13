@@ -1,6 +1,6 @@
 
 stackrox_central_admin_password: stackrox
-ocp4_demo_pipeline_namespace: cicd
+ocp4_demo_pipeline_namespace: pac-demo-pipelines
 acs_expected_crds:
 - centrals.platform.stackrox.io
 - securedclusters.platform.stackrox.io
