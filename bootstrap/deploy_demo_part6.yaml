@@ -1,8 +1,0 @@
----
-- name: 'Install the ACS Demo'
-  hosts: localhost
-  connection: local
-  tasks:
-    - name: 'Install CICD Infra'
-      include_role:
-        name: "ocp4-install-cicd-pac"
