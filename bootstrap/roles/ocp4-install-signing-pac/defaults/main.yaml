@@ -15,7 +15,7 @@ cosign_image: "image-registry.openshift-image-registry.svc:5000/{{ pipeline_name
 #cosign_image: "gcr.io/projectsigstore/cosign:v1.9.0"
 secret_generate_name: signing-secrets
 stackrox_central_admin_password: stackrox
-quay_secret_name: pac-demo-pull-secret
+quay_secret_name: quay-robot-secret
 quay_registry_name: demo-registry
 quay_org_name: pac-demo-pipelines
 quay_project_name: quay-demo
