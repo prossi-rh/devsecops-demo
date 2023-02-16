@@ -1,8 +1,0 @@
----
-- name: 'Install the ACS Demo'
-  hosts: localhost
-  connection: local
-  tasks:
-    - name: 'Config GitOps'
-      include_role:
-        name: "ocp4-config-gitops"
