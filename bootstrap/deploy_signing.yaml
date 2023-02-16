@@ -11,8 +11,8 @@
       include_role:
         name: "ocp4-install-quay"
 
-    - name: 'Install and Enable the infra for Signing and Tekton Chaining'
-      include_role:
-        name: "ocp4-install-signing"
+#    - name: 'Install and Enable the infra for Signing and Tekton Chaining'
+#      include_role:
+#        name: "ocp4-install-signing"
 
     
