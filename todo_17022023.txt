@@ -1,0 +1,19 @@
+Sul cluster HUB:
+DONE 1) Fatto upgrade manuale dell'operator gitops per un bug (https://access.redhat.com/solutions/6991389)
+DONE 2) Playbook per generare un secret "roxsecrets" sul namespace pac-demo-pipelines
+DONE 3) Playbook per creare su QUAY una nuova organization chiamata pac-demo-pipelines e un nuovo repo chiamato food-app e rhel8-buildah
+DONE 4) Playbook per creare su QUAY una nuovo robotaccount "pac_demo" per il repo pac-demo-pipelines/food-app con permessi di admin
+DONE 5) Creare playbook per aggiornare l'integrazione tra ACS e Quay per il robot account pac-demo-pipelines+pac_demo
+DONE 6) Playbook per installare ACM e la custom resource MultiClusterHub
+? DONE 7) Creare un Secret nel namespace pac-demo-pipelines: pac-demo-pull-secret (kubernetes.io/dockerconfigjson) con il robot account pac-demo-pipelines+demo_robot (old name pac-demo-pipelines+pac_demo)
+      # oc secrets link pipeline quay-robot-secret --for=pull,mount -n pac-demo-pipelines
+      # oc secrets link default quay-robot-secret --for=pull,mount -n pac-demo-pipelines
+
+8) Creare un Secret nel namespace pac-demo-pipelines: gamagnolo-github-token (kubernetes.io/basic-auth)
+9) Playbook per import dei singoli cluster in ACM (example: https://github.com/achieris/import-cluster-on-rhacm/blob/main/import-on-rhacm-tower.yaml)
+10) Playbook per creare: ManagedClusterSet, eseguire il move-cluster, ManagedClusterSetBinding, Placement, GitOpsCluster, ApplicationSet per la food-app
+
+SU TUTTI I CLUSTER:
+11) Playbook per creare un namespace "devsecops"
+12) Playbook per inserire un insecure registry nella cr (oc edit image.config.openshift.io/cluster):
+# oc patch image.config.openshift.io cluster --type=merge -p '{"spec":{"registrySources":{"insecureRegistries":["demo-registry-quay-quay-demo.apps.cluster-kmcj4.kmcj4.sandbox1269.opentlc.com"]}}}'

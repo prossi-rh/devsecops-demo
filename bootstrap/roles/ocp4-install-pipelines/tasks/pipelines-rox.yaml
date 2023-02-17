@@ -1,0 +1,8 @@
+- name: Create OpenShift Objects for Openshift Pipeline Tasks
+  k8s:
+    state: present
+    definition: "{{ lookup('template', item ) | from_yaml }}"
+  loop:
+  - ./templates/task-image-scan-task.yaml.j2
+  - ./templates/task-rox-deployment-check.yaml.j2
+  - ./templates/task-rox-image-check.yaml.j2

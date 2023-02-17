@@ -1,0 +1,98 @@
+  - name: "Create the managed cluster namespace on RHACM"
+    k8s:
+      host: "{{ rhacm_api }}" 
+      api_key: "{{ rhacm_token }}"
+      validate_certs : no            
+      name: "{{ managed_cluster_name }}"
+      api_version: v1
+      kind: Namespace
+      state: present
+    
+  - name: "Create the managed cluster CR on RHACM"
+    k8s:
+      host: "{{ rhacm_api }}" 
+      api_key: "{{ rhacm_token }}"
+      validate_certs: no 
+      state: present
+      definition:
+        apiVersion: cluster.open-cluster-management.io/v1
+        kind: ManagedCluster
+        metadata:
+          labels:
+            cloud: auto-detect
+            vendor: auto-detect
+            cluster_type: "{{ cluster_type }}"
+          name: "{{ managed_cluster_name }}"
+        spec:
+          hubAcceptsClient: true
+          leaseDurationSeconds: 60
+
+  - name: "Create the KlusterletAddonConfig CR on RHACM"
+    k8s:
+      host: "{{ rhacm_api }}" 
+      api_key: "{{ rhacm_token }}"
+      validate_certs : no
+      state: present
+      definition:
+        apiVersion: agent.open-cluster-management.io/v1
+        kind: KlusterletAddonConfig
+        metadata:
+          name: "{{ managed_cluster_name }}"
+          namespace: "{{ managed_cluster_name }}"
+        spec:
+          clusterName: "{{ managed_cluster_name }}"
+          clusterNamespace: "{{ managed_cluster_name }}"
+          clusterLabels:
+            cloud: auto-detect
+            vendor: auto-detect
+            cluster_type: "{{ cluster_type }}"
+          applicationManager:
+            enabled: true
+            argocdCluster: true
+          policyController:
+            enabled: true
+          searchCollector:
+            enabled: true
+          certPolicyController:
+            enabled: true
+          iamPolicyController:
+            enabled: true
+  
+  - name: "Get the value of {{ managed_cluster_name }}-import secret automatically created on RHACM"
+    k8s_info:
+      host: "{{ rhacm_api }}" 
+      api_key: "{{ rhacm_token }}"
+      validate_certs : no
+      api_version: v1
+      kind: Secret
+      name: "{{ managed_cluster_name }}-import"
+      namespace: "{{ managed_cluster_name }}"
+    register: managed_cluster_import
+
+
+  - name: "Get crds.yaml manifest from {{ managed_cluster_name }}-import"
+    set_fact:
+      crds_yaml: "{{ item.data['crds.yaml']  | b64decode }}"
+    with_items: "{{ managed_cluster_import.resources }}"
+
+
+  - name: "Get import.yaml manifest from {{ managed_cluster_name }}-import"
+    set_fact:
+      import_yaml: "{{ item.data['import.yaml'] | b64decode }}"
+    with_items: "{{ managed_cluster_import.resources }}"
+
+  - name: "Apply crds.yaml to the cluster target " 
+    k8s:
+      host: "{{ managed_cluster_api }}"             
+      api_key: "{{ managed_cluster_token }}" 
+      validate_certs : no
+      state: present
+      definition: "{{ crds_yaml }}"
+
+  - name: "Apply import.yaml to the cluster target"
+    k8s:
+      host: "{{ managed_cluster_api }}"             
+      api_key: "{{ managed_cluster_token }}" 
+      validate_certs : no
+      state: present
+      definition: "{{ import_yaml }}"

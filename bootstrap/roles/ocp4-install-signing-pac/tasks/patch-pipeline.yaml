@@ -35,29 +35,29 @@
   - ./templates/cosign-task.yaml.j2
 
 # Check Gogs
-- name: Get gogs route
-  kubernetes.core.k8s_info:
-    kind: Route
-    api_version: route.openshift.io/v1
-    namespace: cicd
-    name: gogs
-  register: r_gogs_route
-  retries: 10
-  delay: 20
-  until:
-    - r_gogs_route.resources[0].spec.host is defined
+#- name: Get gogs route
+#  kubernetes.core.k8s_info:
+#    kind: Route
+#    api_version: route.openshift.io/v1
+#    namespace: cicd
+#    name: gogs
+#  register: r_gogs_route
+#  retries: 10
+#  delay: 20
+#  until:
+#    - r_gogs_route.resources[0].spec.host is defined
 
-- name: Debug gogs route
-  debug:
-    msg: "{{ r_gogs_route.resources[0].spec.host }}"
+#- name: Debug gogs route
+#  debug:
+#    msg: "{{ r_gogs_route.resources[0].spec.host }}"
 
-- name: Create OpenShift Objects for Openshift Pipelines Templates
-  k8s:
-    state: present
-    definition: "{{ lookup('template', item ) | from_yaml }}"
-  loop:
-  - ./templates/pipeline-build-dev.yaml.j2
-  - ./templates/pipeline-build-stage.yaml.j2
+    #- name: Create OpenShift Objects for Openshift Pipelines Templates
+    #  k8s:
+    #    state: present
+    #    definition: "{{ lookup('template', item ) | from_yaml }}"
+    #  loop:
+    #  - ./templates/pipeline-build-dev.yaml.j2
+    #  - ./templates/pipeline-build-stage.yaml.j2
 #  - ./templates/pipeline-build-pvc.yaml.j2
 
 - name: Patch Openshift Image Config - Message

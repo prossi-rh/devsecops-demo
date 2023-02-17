@@ -1,0 +1,4 @@
+---
+# tasks file for import-cluster-on-rhacm
+- import_tasks: import-on-rhacm.yaml
+

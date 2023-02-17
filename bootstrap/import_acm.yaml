@@ -1,0 +1,8 @@
+---
+- name: "Import a Kubernetes cluster on Red Hat Advanced Cluster Management for Kubernetes"
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: 'Import in ACM'
+      include_role:
+        name: "import-cluster-on-rhacm"

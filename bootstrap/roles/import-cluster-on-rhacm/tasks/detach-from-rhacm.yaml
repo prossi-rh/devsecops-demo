@@ -1,0 +1,18 @@
+- name: "Detach a Kubernetes cluster on Red Hat Advanced Cluster Management for Kubernetes"
+  hosts: all
+  gather_facts: no
+
+  tasks:
+
+  - name: "Delete the managed cluster CR on RHACM"
+    k8s:
+      host: "{{ rhacm_api }}" 
+      api_key: "{{ rhacm_token }}"
+      validate_certs : no 
+      state: absent
+      definition:
+        apiVersion: cluster.open-cluster-management.io/v1
+        kind: ManagedCluster
+        metadata:
+          name: "{{ managed_cluster_name }}"
+
