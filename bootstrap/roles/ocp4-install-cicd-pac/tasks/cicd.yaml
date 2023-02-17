@@ -1,4 +1,4 @@
-- name: Add RoleBinding to the devsecops projects
+- name: Add RoleBinding to the pac-demo-pipelines projects
   kubernetes.core.k8s:
     state: present
     definition: "{{ lookup('template', 'cicd-rb.yaml.j2') }}"
