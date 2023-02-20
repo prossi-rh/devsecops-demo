@@ -1,0 +1,9 @@
+---
+- name: 'Install the ACS Demo'
+  hosts: localhost
+  connection: local
+  tasks:
+
+    - name: 'Secured Cluster'
+      include_role:
+        name: "ocp4-securedcluster-acs"
