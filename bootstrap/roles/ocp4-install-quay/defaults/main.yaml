@@ -8,6 +8,7 @@ quay_secret_name: quay-robot-secret
 quay_repositories:
   - food-app
   - rhel8-buildah
+  - argocd
 quay_robot_account: demo_robot
 pipeline_namespace: pac-demo-pipelines
 csrf_pattern: ".*window.__token\ =\ '(.*)';.*"
@@ -24,7 +25,7 @@ quay_robot_found_success_status_code: 200
 quay_robot_created_success_status_code: 201
 quay_perm_success_status_code: 200
 secret_required_namespaces:
-  #  - cicd
+  #- cicd
   #- devsecops-dev
   #- devsecops-qa
   - pac-demo-pipelines
