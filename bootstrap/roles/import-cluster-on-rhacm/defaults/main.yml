@@ -2,8 +2,8 @@
 # defaults file for import-cluster-on-rhacm
 #
 rhacm_api: https://api.cluster-lbl8h.lbl8h.sandbox1206.opentlc.com:6443/
-rhacm_token:
+rhacm_token: 
 managed_cluster_name: ocp4stage
-managed_cluster_api: https://api.cluster-tqbqn.tqbqn.sandbox1817.opentlc.com:6443/
-managed_cluster_token:
+managed_cluster_api: https://api.cluster-spcpp.spcpp.sandbox1231.opentlc.com:6443
+managed_cluster_token: 
 cluster_type: stage
