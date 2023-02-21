@@ -1,0 +1,36 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: food-app
+  namespace: openshift-gitops
+spec:
+  generators:
+    - clusterDecisionResource:
+        configMapRef: acm-placement
+        requeueAfterSeconds: 180
+        labelSelector:
+          matchLabels:
+            cluster.open-cluster-management.io/placement: all-openshift-clusters
+      list:
+        elements:
+          - cluster: ocp4stage
+            url: https://api.cluster-mg24x.mg24x.sandbox59.opentlc.com:6443
+          - cluster: ocp4dev
+            url: https://api.cluster-997wg.997wg.sandbox48.opentlc.com:6443
+  template:
+    metadata:
+      name: food-app-{{name}}
+    spec:
+      project: default
+      source:
+        path: overlays/{{cluster}}
+        repoURL: https://github.com/gamagnolo/food-app-config
+        targetRevision: HEAD
+      destination:
+        namespace: devsecops
+        server: "{{url}}"
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
+        automated:
+          selfHeal: true

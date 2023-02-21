@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: food-app
+  namespace: openshift-gitops
+spec:
+  generators:
+    - list:
+        elements:
+          - cluster: ocp4stage
+            url: https://api.cluster-mg24x.mg24x.sandbox59.opentlc.com:6443
+          - cluster: ocp4dev
+            url: https://api.cluster-997wg.997wg.sandbox48.opentlc.com:6443
+  template:
+    metadata:
+      name: "food-app-{{cluster}}"
+    spec:
+      destination:
+        namespace: devsecops
+        server: "{{url}}"
+      project: default
+      source:
+        path: overlays/{{cluster}}
+        repoURL: https://github.com/gamagnolo/food-app-config
+        targetRevision: HEAD
