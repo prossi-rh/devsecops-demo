@@ -8,14 +8,12 @@ spec:
     - list:
         elements:
           - cluster: ocp4stage
-            url: https://api.cluster-tqbqn.tqbqn.sandbox1817.opentlc.com:6443
+            url: https://api.cluster-mg24x.mg24x.sandbox59.opentlc.com:6443
           - cluster: ocp4dev
-            url: https://api.cluster-4xhhm.4xhhm.sandbox1456.opentlc.com:6443
-      clusterDecisionResource:
-        requeueAfterSeconds: 180
+            url: https://api.cluster-997wg.997wg.sandbox48.opentlc.com:6443
   template:
     metadata:
-      name: food-app-{{name}}
+      name: "food-app-{{cluster}}"
     spec:
       destination:
         namespace: devsecops

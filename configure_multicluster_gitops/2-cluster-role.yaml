@@ -5,5 +5,5 @@ metadata:
 rules:
   - apiGroups: ["cluster.open-cluster-management.io"]
     resources: ["managedclustersets/join"]
-    resourceNames: ["all-clusters"]
+    resourceNames: ["all-openshift-clusters"]
     verbs: ["create"]
