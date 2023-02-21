@@ -71,7 +71,7 @@
 
 - name: Link Secret to Pipeline ServiceAccount for Pipeline Namespace
   shell: |
-    oc secrets link pipeline pipeline-token-bngdl -n {{ ocp4_demo_pipeline_namespace }}
+    oc secrets link pipeline pipeline-token-bmzpp -n {{ ocp4_demo_pipeline_namespace }}
     
 - name: Get Service Account objects
   kubernetes.core.k8s_info:
