@@ -11,3 +11,4 @@ DEBUG/part5.log
 DEBUG/part6_1.log
 DEBUG/part6.log
 DEBUG/todo_17022023.txt
+configure_multicluster_gitops/old_appset/ocp4dev-ocp4stage-cluster-init-secrets.yaml
