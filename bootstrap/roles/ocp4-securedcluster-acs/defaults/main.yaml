@@ -1,7 +1,7 @@
 
 stackrox_central_admin_password: stackrox
 ocp4_demo_pipeline_namespace: pac-demo-pipelines
-stackrox_central_addr: central-stackrox.apps.cluster-lbl8h.lbl8h.sandbox1206.opentlc.com
+stackrox_central_addr: central-stackrox.apps.cluster-424sx.424sx.sandbox1124.opentlc.com
 acs_expected_crds:
 - securedclusters.platform.stackrox.io
 
