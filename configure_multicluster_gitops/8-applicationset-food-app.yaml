@@ -8,9 +8,9 @@ spec:
     - list:
         elements:
           - cluster: ocp4stage
-            url: https://api.cluster-mg24x.mg24x.sandbox59.opentlc.com:6443
+            url: https://api.cluster-c7v8p.c7v8p.sandbox1825.opentlc.com:6443
           - cluster: ocp4dev
-            url: https://api.cluster-997wg.997wg.sandbox48.opentlc.com:6443
+            url: https://api.ocp4dev.sandbox2618.opentlc.com:6443
   template:
     metadata:
       name: "food-app-{{cluster}}"
