@@ -1,0 +1,130 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: policy-advanced-managed-cluster-security
+  namespace: stackrox
+  annotations:
+    policy.open-cluster-management.io/categories: CM Configuration Management
+    policy.open-cluster-management.io/controls: CM-2 Baseline Configuration
+    policy.open-cluster-management.io/standards: NIST SP 800-53
+  creationTimestamp: 2023-02-27T08:57:40Z
+  generation: 7
+  managedFields:
+spec:
+  disabled: true
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: managed-cluster-security-ns
+        spec:
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: v1
+                kind: Namespace
+                metadata:
+                  name: stackrox
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: v1
+                kind: Namespace
+                metadata:
+                  name: rhacs-operator
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: operators.coreos.com/v1
+                kind: OperatorGroup
+                metadata:
+                  name: rhacs-operator-group
+                  namespace: rhacs-operator
+                spec: {}
+          remediationAction: inform
+          severity: high
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: managed-cluster-security-operator-sub
+        spec:
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: operators.coreos.com/v1alpha1
+                kind: Subscription
+                metadata:
+                  name: rhacs-operator
+                  namespace: rhacs-operator
+                spec:
+                  name: rhacs-operator
+                  channel: latest
+                  installPlanApproval: Automatic
+                  source: redhat-operators
+                  sourceNamespace: openshift-marketplace
+          remediationAction: inform
+          severity: high
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: managed-cluster-security-endpoints
+        spec:
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: platform.stackrox.io/v1alpha1
+                kind: SecuredCluster
+                metadata:
+                  name: stackrox-secured-cluster-services
+                  namespace: stackrox
+                spec:
+                  admissionControl:
+                    listenOnCreates: false
+                    listenOnEvents: true
+                    listenOnUpdates: false
+                  auditLogs:
+                    collection: Auto
+                  centralEndpoint: demo-registry-quay-quay-demo.apps.cluster-bmgnq.bmgnq.sandbox1012.opentlc.com:443
+                  clusterName: >
+                    {{ fromSecret "open-cluster-management-agent"
+                    "hub-kubeconfig-secret" "cluster-name" | base64dec }}
+                  perNode:
+                    collector:
+                      collection: KernelModule
+                      imageFlavor: Regular
+                    taintToleration: TolerateTaints
+          remediationAction: inform
+          severity: high
+  remediationAction: inform
+status:
+  placement:
+    - placementBinding: policy-advanced-managed-cluster-security-placement
+      placementRule: policy-advanced-managed-cluster-security-placement
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule
+metadata:
+  name: policy-advanced-managed-cluster-security-placement
+  namespace: stackrox
+  annotations:
+    open-cluster-management.io/user-group: c3lzdGVtOmF1dGhlbnRpY2F0ZWQ6b2F1dGgsc3lzdGVtOmF1dGhlbnRpY2F0ZWQ=
+    open-cluster-management.io/user-identity: YWRtaW4=
+  creationTimestamp: 2023-02-27T08:57:40Z
+  generation: 3
+spec:
+  clusterConditions:
+    - status: "True"
+      type: ManagedClusterConditionAvailable
+  clusterSelector:
+    matchExpressions:
+      - key: vendor
+        operator: In
+        values:
+          - OpenShift
+      - key: environment
+        operator: In
+        values:
+          - stage
+          - dev
+status: {}
