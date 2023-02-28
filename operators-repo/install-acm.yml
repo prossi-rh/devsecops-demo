@@ -2,9 +2,9 @@
 - name: Install ACM
   hosts: localhost
   vars:
-    ocp_username: admin
-    ocp_password: SHQ5Tv4Y0xkoWvEt
-    ocp_api_url: https://api.cluster-424sx.424sx.sandbox1124.opentlc.com:6443
+    ocp_username: 
+    ocp_password: 
+    ocp_api_url: 
   tasks:
     - name: Fail fast if variables are note defined
       ansible.builtin.fail:
